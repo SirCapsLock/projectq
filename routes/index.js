@@ -20,8 +20,10 @@ var router = express.Router();
 // redirect for you simply by passing `res`.
 //app.get('/oauth/linkedin', function(req, res) {
 // This will ask for permisssions etc and redirect to callback url.
+// <<<<<<< Updated upstream
 //    Linkedin.auth.authorize(res, scope);
 //});
+
 router.get('/testdb', function(req,res, next) {
   var sqlite = require('sqlite3').verbose();
   var db = new sqlite.Database(':qdb');
