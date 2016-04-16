@@ -1,8 +1,143 @@
 body {
-    padding: 50px;
+    padding: 0;
+    margin: 0;
     font-family: 'Lato', sans-serif;
 }
 
 a {
-    color: #00B7FF;
+    color: #20baed;
+}
+
+.jumbotron {
+    background-image: url(../images/banner_image.jpg);
+    background-position: 10% 25%;
+    background-repeat: no-repeat;
+    background-size: 100% auto;    
+    text-align: center;
+    margin: 0;
+    border: 5px solid white;
+}
+
+.navbar {
+    background: #20baed;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(255,255,255,1) 8%, rgba(32,186,237,1) 66%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 8%,rgba(32,186,237,1) 66%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(255,255,255,1) 8%,rgba(32,186,237,1) 66%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    border-bottom: 2px solid #fff;
+}
+
+.navbar li a, 
+.navbar-brand {
+    color: white !important;
+}
+
+.navbar li {
+    margin: 15px auto;
+}
+
+.navbar li:hover {
+    background: #0099cc;
+}
+
+.navbar-brand {
+    font-weight: 900;
+}
+
+.jumbotron h2 {
+    text-align: center;
+    color: white;
+    width: 50%;
+    margin: 10px auto 10px auto;
+    background: #ffcd33;
+    padding: 1% 2%;
+}
+
+.btn-primary {
+    background: #46cec3 !important;
+    border-color: #264368;
+    padding: 8px 28px !important;
+}
+
+#home_container {
+    margin: 0 auto;
+    padding: 40px;
+    text-align: center;
+    color: #20baed;
+}
+
+#home_container h1 {
+    font-weight: 900;
+}
+
+.company_holders {
+    display: table;
+    width: 80%;
+    margin: 40px auto;
+}
+
+.comp_logo_box {
+    margin: 10px auto;
+}
+
+.company_logos {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.idiot {
+    padding-top: 20px;
+}
+
+.idiot2 {
+    padding-top: 40px;
+}
+
+
+#jumboHold {
+    background: #264368;
+    padding: 40px;
+}
+
+#testimonials {
+    padding: 30px;
+    text-align: center !important;
+    background: #f4f4f4;
+}
+
+#testimonials img {
+    width: 50%;
+    margin: 0 auto 15px auto;
+    border: 2px solid #ffcd33;
+}
+
+.testimonialsRow {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#testimonials h2 {
+    margin-bottom: 20px;
+    font-weight: 900;
+    color: #264368;
+}
+
+#testimonials p b {
+    color: #2ebcb4;
+}
+
+footer {
+    background: #264368;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 50px 30px;
+}
+
+#navLogo {
+    width: 25%;
+    margin: 5px;
 }
