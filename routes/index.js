@@ -7,6 +7,9 @@ var router = express.Router();
    res.render('index', { title: 'Project Q' });
  });
 
+router.get('/recorder', function (req, res) {
+    res.render('recorder');
+});
 // module.exports = router;
 
 //var linkedin = Linkedin.init('my_access_token');
@@ -24,7 +27,7 @@ var router = express.Router();
 //});
 router.get('/testdb', function(req,res, next) {
   var sqlite = require('sqlite3').verbose();
-  var db = new sqlite.Database(':qdb');
+  var db = new sqlite.Database('db/qdb.db');
   console.log(db);
   db.close();
 
