@@ -4,8 +4,8 @@
         <title>{{title}}</title>
         
         <!-- Bootstrap & Normalize CSS  -->
-        <link media="all" type="text/css" rel="stylesheet" href="/css/normalize.css">
-        <link media="all" type="text/css" rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
+        <link media="all" type="text/css" rel="stylesheet" href="/stylesheets/normalize.css">
+        <link media="all" type="text/css" rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css">
         
         <!-- Google Fonts -->
         <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,300,400italic' rel='stylesheet' type='text/css'>
@@ -17,7 +17,52 @@
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     </head>
 <body>
+    
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/"><img id="navLogo" class="img-responsive" src="/images/Qme_logo.png" /></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Tips</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Sign Up</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    
     {{{body}}}
+    
+    <footer>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                Logo goes here
+            </div>
+            
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                links go here
+            </div>
+            
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                social media goes here
+            </div>
+        </div>
+        <p>copyright goes here</p>
+    </footer>
     
     
     <!-- --------------------------------------------------- -->
