@@ -23,11 +23,15 @@ a {
     margin: 0;
     border-radius: 0;
     border: none;
+    
     background: rgb(255,255,255); /* Old browsers */
     background: -moz-linear-gradient(left, rgba(255,255,255,1) 8%, rgba(32,186,237,1) 66%); /* FF3.6-15 */
     background: -webkit-linear-gradient(left, rgba(255,255,255,1) 8%,rgba(32,186,237,1) 66%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to right, rgba(255,255,255,1) 8%,rgba(32,186,237,1) 66%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     border-bottom: 2px solid #fff;
+    font-size: 120%;
+    
+    background: #264368;
 }
 
 .navbar li a, 
@@ -40,7 +44,7 @@ a {
 }
 
 .navbar li:hover {
-    background: #0099cc;
+    background: #56c3bc;
 }
 
 .navbar-brand {
@@ -66,7 +70,7 @@ a {
     margin: 0 auto;
     padding: 40px;
     text-align: center;
-    color: #20baed;
+    color: #46cec3;
 }
 
 #home_container h1 {
@@ -98,7 +102,7 @@ a {
 
 
 #jumboHold {
-    background: #264368;
+    background: #20baed;
     padding: 40px;
 }
 
@@ -135,9 +139,64 @@ footer {
     text-align: center;
     margin: 0;
     padding: 50px 30px;
+    border-top: 2px solid white;
 }
 
 #navLogo {
     width: 25%;
     margin: 5px;
+}
+
+#footerLogo {
+    width: 40%;
+    margin: 0 auto;
+}
+
+#copyright {
+    font-size: 70%;
+    margin: 50px auto 0 auto;
+    letter-spacing: 0.1em;
+}
+
+#footerNav, #socialMedia {
+    padding: 50px 0 0 0;
+    text-align: center;
+}
+
+#footerNav .navbar-nav {
+    margin-left: 60px;
+}
+
+.pageTitle {
+    background: #20baed;
+    color: #fff;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 20px 0;
+    border-bottom: 5px solid #ffcd33;
+    width: 96%;
+    margin: 2%;
+}
+
+.pageTitle h1 {
+    margin: 0 20px;
+    padding: 20px;
+    font-size: 280%;
+    text-align: center;
+}
+
+#signup_container {
+    width: 100%;
+    padding: 100px 100px;
+    text-align: center;
+    background: #f4f4f4;
+    width: 60%;
+    margin: 0 auto 25px auto;
+}
+
+#signUpBox {
+    margin: 20px auto;
+    width: 60%;
+    border: 6px solid #264368; 
+    padding: 5%;
 }

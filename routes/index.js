@@ -4,7 +4,15 @@ var router = express.Router();
 
 // /* GET home page. */
  router.get('/', function(req, res, next) {
-   res.render('index', { title: 'Project Q' });
+   res.render('index', { title: 'Project QME' });
+ });
+
+router.get('/signup', function(req, res, next) {
+   res.render('signup', { title: 'Sign Up | QME' });
+ });
+
+router.get('/login', function(req, res, next) {
+   res.render('login', { title: 'Login | QME' });
  });
 
 router.get('/recorder', function (req, res) {
