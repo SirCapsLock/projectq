@@ -1,0 +1,49 @@
+<div class="pageTitle">
+    
+    <h1>Today's Interview Sponsors</h1>
+
+</div>
+
+<div id="sponsors">
+    
+    <h3>Completing a sponsored interview allows you to get recruiter feedback</h3>
+
+    <div class="row sponsorsRow">
+       {{#each data}}
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <img class="sponsorLogos img-responsive" src="/images/{{logo}}" />
+                <p class="testimonialsText"><b>{{company}}</b><br/>{{recruiter}}<br/>{{interview}}</p>
+                <a class="btn btn-primary btn-lg" href="/recorder?id={{interviewID}}" role="button">Start</a>
+            </div>
+        {{/each}}
+    </div>
+    
+</div>
+
+<div class="pageTitle">
+    
+    <h1>Interview Question of the Day!</h1>
+
+</div>
+
+<div id="dayQuest">
+    <div class="row">
+        <div class="col-lg-1">
+            <h4 id="bigQ">Q:</h4>
+        </div>
+        
+        <div class="col-lg-11">
+            <h4 id="actualQuestion">Where do you see yourself in 5 years?</h4>
+        </div>
+        <div class="col-lg-12">
+            <br/>
+            <a class="btn btn-primary btn-lg" href="/recorder?id=0" role="button">Start</a>
+        </div>
+    </div>
+</div>
+
+<div class="pageTitle">
+    
+    <h1>Recent Feedback</h1>
+
+</div>

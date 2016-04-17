@@ -20,6 +20,58 @@ router.get('/recorder', function (req, res) {
     res.render('recorder');
 });
 
+router.get('/dashboard', function(req, res, next) {
+    
+    var sqlite = require('sqlite3').verbose();
+var db = new sqlite.Database('db/qdb.db');
+    
+    var response = {};
+    var collection = [];
+    
+    var count = 0;
+    var total = 0;
+    
+    db.all("SELECT * FROM interviews WHERE sponsoring = 'TRUE'", function(err, interviews) {
+        total = interviews.length;
+        
+        interviews.forEach(function(interview) {
+            
+            var sponsor = {};
+            
+            sponsor.interviewID = interview.id; 
+            sponsor.interview = interview.title;
+            
+            db.get("SELECT * FROM users WHERE id = " + interview.user_id, function(err, user) {
+                
+                sponsor.recruiter = user.firstname + " " + user.lastname;
+                
+                db.get("SELECT * FROM recruiters WHERE user_id = " + user.id, function(err, recr) {
+                    
+                    db.get("SELECT * FROM companies WHERE id = " + recr.company_id, function(err, comp) {
+                        
+                        sponsor.company = comp.name;
+                        sponsor.logo = comp.logo;
+                        
+                        collection.push(sponsor);
+                        
+                        response.sponsors = collection;
+                        
+                        count++;
+                        
+                        if (count === total) {
+
+                            res.render('dashboard', { title: 'Login | QME', data: response.sponsors });
+                        }
+                    });
+                });
+            });
+        });
+    });
+    
+    
+   
+ });
+
 router.get('/qdb', function (req, res) {
     qdb.add('users', {
         firstname : 'enrique',

@@ -106,27 +106,52 @@ a {
     padding: 40px;
 }
 
-#testimonials {
+#testimonials,
+#sponsors,
+#dayQuest {
     padding: 30px;
     text-align: center !important;
     background: #f4f4f4;
 }
 
-#testimonials img {
+#dayQuest {
+    padding: 60px 20%;
+}
+
+#testimonials img,
+#sponsors img {
     width: 50%;
     margin: 0 auto 15px auto;
     border: 2px solid #ffcd33;
 }
 
-.testimonialsRow {
+#sponsors img {
+    border: none;
+}
+
+.testimonialsRow, .sponsorsRow {
     width: 80%;
     margin: 0 auto;
 }
 
-#testimonials h2 {
+#testimonials h2,
+#sponsors h3 {
     margin-bottom: 20px;
     font-weight: 900;
     color: #264368;
+}
+
+#bigQ {
+    font-weight: 900;
+    font-size: 300%;
+    color: #46cec3;
+    text-align: right;
+}
+
+#actualQuestion {
+    font-weight: 900;
+    font-size: 300%;
+    text-align: left;
 }
 
 #testimonials p b {
@@ -219,3 +244,8 @@ footer {
     margin: 30px auto;
 }
 
+
+.sponsorLogos {
+   height: 128px !important;
+    width: auto !important;
+}
