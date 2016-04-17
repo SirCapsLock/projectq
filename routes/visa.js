@@ -109,7 +109,7 @@ router.post('/', function(req, res) {
     QME.pull.transfer({
         'acquirerCountryCode': '840',
         'acquiringBin': '408999',
-        'amount': req.body.amount || '124.02',
+        'amount': '20.00',
         'businessApplicationId': 'AA',
         'cardAcceptor': {
             'address': {
@@ -128,7 +128,7 @@ router.post('/', function(req, res) {
         'senderCardExpiryDate': req.body.expires || '2015-10',
         'senderCurrencyCode': 'USD',
         'senderPrimaryAccountNumber': req.body.accountNumber || '4895142232120006',
-        'surcharge': req.body.surCharge || '11.99',
+        'surcharge': '11.99',
         'systemsTraceAuditNumber': '451001'
     }).then(a => res.send(a));
 });

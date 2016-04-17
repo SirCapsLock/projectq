@@ -14,36 +14,56 @@
         
         <form>
             
-            <div class="row">
-                <div class="col-lg-6">
-                    <h3>Choose a desired date.</h3>
+          <h3><b>Price:</b> $20.00</h3>
 
-                    <input type="date" required />
-                </div>
-                
-                <div class="col-lg-6">
-                    <h3><b>Price:</b> $20.00</h3>
-
-                    <input type="number" placeholder="Credit Card Number" required />
-                </div>
-            </div>
-            
-            
-
-        
+                    <input id="cardNumber" type="number" placeholder="Credit Card Number" Value="4895142232120006" required />
             
 
             <br/><br/>
 
-            <h3>Pay us with Visa direct!</h3>
-
-
-            <button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span> &nbsp; Pay Now</button>
+            <h3>Pay us with Visa direct!</h3> 
         
         </form>
         
+        
+        <button id="payNowBtn" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span> &nbsp; Pay Now</button>
     </div>
     
-    
+    <div id="statusBar" class="hidden">
+        <h4>Success</h4>
+    </div>
     
 </div>
+
+
+<script>
+    
+    payNowBtn.addEventListener('click', function(){
+        
+        fetch("/visa", {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                accountNumber: cardNumber.value,
+                expires: '2015-10'
+            })
+        }).then(function(res) {
+            if(res.status === 200) {
+                // make it green
+                $('#statusBar').addClass('success').removeClass("hidden").delay(1000).queue(function(){
+                    $(this).removeClass("success").addClass('hidden').dequeue();
+                });
+                //alert();
+            } else {
+                // make it red
+                 $('#statusBar').addClass('error').removeClass("hidden").delay(1000).queue(function(){
+                    $(this).removeClass("error").addClass('hidden').dequeue();
+                });
+            }
+        });
+                             
+    });
+</script>
