@@ -91,17 +91,132 @@ router.get('/sponsors', function(req, res){
             });
         });
     });
-    
 });
 
 
 //returns a random question of the day
 router.get('/qday', function(req, res){
-    var sponsors = db.get("SELECT * FROM questions WHERE sponsoring = TRUE", function(err, rows){
-        console.log(err);
+    
+    var response = {};
+    
+    db.get("SELECT * FROM questions WHERE day_question = 'TRUE'", function(err, questionOfDay) {
+        
+        //console.log('question', questionOfDay);
+        //console.log(questionOfDay.text);
+        
+        response.question = questionOfDay.text;
+        console.log(response);
+        res.json(response);
+    });
+    
+    
+});
+
+//returns performance feedback
+router.get('/performance', function(req, res){
+    
+    //userid
+    //hard coded for now. this will be brought in by the session.
+    var userID = 4;
+    
+    var response = {};
+    var collection = [];
+    
+    var count = 0;
+    var total = 0;
+    
+    db.all("SELECT * FROM performances WHERE user_id = " + userID, function(err, performances) {
+        
+        //console.log('performances Err: ', err);
+        //console.log('performances: ', performances);
+        
+        //console.log(performances.length);
+        total = performances.length;
+        
+        performances.forEach(function(performance) {
+            //console.log('performance:', performance);
+            
+            var outcome = {};
+            outcome.avgRating = performance.avg_rating;
+            
+            db.get("SELECT * FROM questions WHERE id = " + performance.question_id, function(err, question) {
+                //console.log('From question Error: ', err);
+                //console.log('From question Result:', question);
+                
+                outcome.question = question.text;
+                outcome.type = question.type;
+                
+                db.get("SELECT * FROM interviews WHERE id = " + question.interview_id, function(err, interview) {
+                    //console.log('From interview Error: ', err);
+                    //console.log('From interview Result:', interview);
+                    
+                    outcome.interview = interview.title;
+                    
+                    db.all("SELECT * FROM comments WHERE performance_id = " + performance.id, function(err, comments) {
+                        //console.log('From comments Error: ', err);
+                        //console.log('From comments Result:', comments);
+
+                        outcome.comments = [];
+                        
+                        outcome.com = {};
+                        
+                        //count++;
+                        
+                        comments.forEach(function(comment) {
+                            
+                            outcome.com.comm = comment.text;
+                            
+                            db.get("SELECT * FROM users WHERE id = " + comment.user_id, function(err, ruser) {
+                                //console.log('From ruser Error: ', err);
+                                //console.log('From ruser Result:', ruser);
+
+                                outcome.com.recruiter = ruser.firstname + " " + ruser.lastname;
+                                
+                                db.get("SELECT * FROM recruiters WHERE user_id = " + ruser.id, function(err, recr) {
+                                    //console.log('From rcur Error: ', err);
+                                    //console.log('From rcur Result:', recr);
+                                
+                                    db.get("SELECT * FROM companies WHERE id = " + recr.company_id, function(err, comp) {
+                                        //console.log('From comp Error: ', err);
+                                        //console.log('From comp Result:', comp);
+
+                                        outcome.com.company = comp.name;
+
+                                        outcome.comments.push(outcome.com);
+
+                                        collection.push(outcome);
+                                        
+                                        console.log("\n\n COLLECTION: \n\n", collection);
+
+                                        response.performance = collection;
+                                        
+                                        console.log("\n\n RESPONSE: \n\n", response);
+
+                                        count++;
+
+                                        if (count === total-1) {
+                                            console.log(response);
+                                            res.json(response);
+                                        }
+                                    });
+                                });
+                            });
+                            
+                        });
+                        
+                    });
+                    
+                });
+            });
+            
+        });
         
     });
+    
 });
+
+
+    
 
 
 router.post('/interview', function(req,res){
