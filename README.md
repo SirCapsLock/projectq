@@ -1,1 +1,2 @@
-# projectq
+#Qmr
+Our app is ment to assist job seekers in interview training.  A user will sign up using his LinkedIn account, for that we used **Omniauth** and the **LinkedIn API**. Once signed up, the user's details are saved in the SQlite database.  At this point the user will receive  three random job interview question, his answers will be recorded and watched by other users that would rate their performance.  In addition to job seekers, recruters 
