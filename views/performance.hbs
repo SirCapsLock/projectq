@@ -1,0 +1,88 @@
+<script src="https://cdn.WebRTC-Experiment.com/RecordRTC.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        var recorder;
+        var mediaConstraints = { video: true, audio: true };
+        var recordBtn = $('#record-button');
+        var isRecording = false;
+        var video = $('#recording-video');
+        var theStream;
+        var $questions = $('#questions li');
+        var $currentQuestion = $('#interview-question');
+        var $nextQbtn = $('#next-question-button');
+        $nextQbtn.click(function (e) {
+            nextQuestion();
+        });
+        var $curQuestionNum = $('#current-question-index');
+        var $totalQuestions = $('#questions-total');
+
+        var qIndex = 0;
+
+        var curQid = $($questions[qIndex]).attr('id');
+        var curQurl = $($questions[qIndex]).attr('data-src');
+
+        $curQuestionNum.text(qIndex + 1);
+        $totalQuestions.text($questions.length);
+
+        $currentQuestion.text($($questions[0]).text());
+
+        video.attr('src', curQurl);
+
+        console.log("URL: " + curQurl);
+
+        function nextQuestion() {
+            console.log("Proceeding to next question");
+            qIndex++;
+            if(qIndex < $questions.length)
+            {
+                recordBtn.show();
+                $curQuestionNum.text(qIndex + 1);
+                curQid = $($questions[qIndex]).attr('id');
+                $currentQuestion.text($($questions[qIndex]).text());
+                video.attr('src', $($questions[qIndex]).attr('data-src'));
+            }
+            else
+            {
+                finish();
+            }
+
+        }
+
+        function finish() {
+            console.log("DONE!");
+            window.location = "/dashboard";
+
+
+        }
+
+    });
+
+
+</script>
+
+<ul id="questions" style="display: none;">
+    {{#each questions}}
+        <li id="question-{{this.id}}" data-src="{{this.url}}">{{this.text}}</li>
+    {{/each}}
+</ul>
+
+<div class="interview-info pageTitle">
+    <h1>{{ title }}</h1>
+    <div class="questions-counter" align="center">
+        Question <span id="current-question-index">1</span> of <span id="questions-total">3</span>
+    </div>
+</div>
+
+<div class="interview-question" align="center">
+    <h1 id="interview-question"></h1>
+</div>
+
+<div align="center">
+    <video id="recording-video" width="640" height="480" controls>
+
+    </video>
+    <br>
+    <button class="btn-lg" id="next-question-button">Next Question</button>
+</div>

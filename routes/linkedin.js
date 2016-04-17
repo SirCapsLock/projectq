@@ -23,7 +23,7 @@ router.get('/licallback', function(req, res) {
      */
     console.log(results);
     var linkedin = Linkedin.init(results.access_token);
-    linkedin.people.me(function(err, $me) {
+    /*linkedin.people.me(function(err, $me) {
       console.log($me);
       var cols = [
         'firstName',
@@ -47,8 +47,8 @@ router.get('/licallback', function(req, res) {
           console.log("DONE");
       });
     });
-
-    return res.redirect('/');
+    */
+    return res.redirect('/dashboard');
   });
 });
 

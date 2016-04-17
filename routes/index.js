@@ -3,6 +3,9 @@ var express = require('express');
 var router = express.Router();
 var qdb = require('../libs/qdb');
 var fs = require('fs');
+var sqlite = require('sqlite3');
+var db = new sqlite.Database('db/qdb.db');
+
 // /* GET home page. */
  router.get('/', function(req, res, next) {
    res.render('index', { title: 'Project QME' });
@@ -21,7 +24,87 @@ router.get('/sponsor', function(req, res, next) {
  });
 
 router.get('/recorder', function (req, res) {
-    res.render('recorder');
+
+    var interviewID = req.query.id;
+    var id = req.query.interview_id;
+    var questions;
+    db.serialize(function() {
+        db.get("SELECT * FROM interviews WHERE id = " + interviewID, function(err, interview) {
+            var response = {};
+            response.title = interview.title;
+            response.questions = [];
+
+            db.all("SELECT * FROM questions WHERE interview_id = " + interviewID, function(err, questions) {
+                questions.forEach(function(question) {
+                    //console.log('performance:', performance);
+
+                    var que = {};
+                    que.id = question.id;
+                    que.text = question.text;
+                    response.questions.push(que);
+                });
+
+                questions = response.questions;
+                var title = response.title;
+                res.render('recorder', {
+                    title: title,
+                    questions: questions
+                });
+            });
+        });
+    });
+
+
+
+    /*var questions = [
+        {
+            text: 'Tell me a little about yourself',
+            time: 30
+        },
+        {
+            text: 'How do you feel about Node?',
+            time: 15
+        }
+    ];*/
+
+});
+
+router.get('/performance', function (req, res) {
+    var interviewID = req.query.interview_id;
+    var questions;
+    db.serialize(function() {
+        db.all("SELECT * FROM questions WHERE interview_id = " + interviewID, function(err, questions) {
+            var questionData = [];
+            var questionIDs = [];
+            questions.forEach(function (question, index) {
+                questionIDs.push(question.id);
+                questionData[question.id] = {
+                    id: question.id,
+                    text: question.text
+                };
+            });
+
+            var query = "SELECT * FROM performances WHERE question_id IN (";
+            query += questionIDs.join(',');
+            query += ")";
+
+            db.all(query, function(err, performances) {
+                var response = {};
+                response.questions = [];
+                var newQdata = [];
+                performances.forEach(function(performance) {
+                    //console.log('performance:', performance);
+                    questionData[performance.question_id].url = performance.recording_url;
+                });
+                
+                var title = 'Performance';
+                res.render('performance', {
+                    title: title,
+                    questions: questionData
+                });
+            });
+        });
+    });
 });
 
 router.get('/dashboard', function(req, res, next) {

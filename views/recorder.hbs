@@ -109,7 +109,11 @@
         });
 
         function saveVideo(vidData) {
-            var filename = 'YUUU_i1_q1';
+            var filename = '';
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for( var i=0; i < 5; i++ )
+                filename += possible.charAt(Math.floor(Math.random() * possible.length));
+
             var files = {};
 
             files.question = {
@@ -169,7 +173,7 @@
 
         function finish() {
             console.log("DONE!");
-            window.location = "/";
+            window.location = "/dashboard";
 
 
         }
@@ -185,9 +189,9 @@
     {{/each}}
 </ul>
 
-<div class="interview-info">
+<div class="interview-info pageTitle">
     <h1>{{ title }}</h1>
-    <div class="questions-counter">
+    <div class="questions-counter" align="center">
         Question <span id="current-question-index">1</span> of <span id="questions-total">3</span>
     </div>
 </div>
@@ -195,6 +199,7 @@
 <div class="interview-question" align="center">
     <h1 id="interview-question"></h1>
 </div>
+
 
 <div align="center">
     <video id="recording-video" width="640" height="480" controls>

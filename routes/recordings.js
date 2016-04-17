@@ -13,8 +13,12 @@ router.post('/save', function (req, res) {
     var question = req.body.question;
     var qid = question.id;
 
+    video.contents = video.contents.split(',').pop();
+
     var fileBuffer = new Buffer(video.contents, "base64");
-    fs.writeFileSync('vids/' + video.name, fileBuffer);
+    fs.writeFileSync('public/vids/' + video.name, fileBuffer);
+
+
 
     var recURL = 'http://localhost:3000/vids/' + video.name;
 
