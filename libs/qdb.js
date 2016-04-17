@@ -8,23 +8,29 @@ exports.add = function(table, data) {
     var query = "INSERT INTO " + table + "(";
     query += cols;
     query += ") VALUES "*/
-    db.all("PRAGMA table_info(" + table + ")", function(err, cols) {
-        /*cols = cols.map(function (col) {
-            return col.name
-        });
-
-        var newData = cols.reduce(function(newObj, colName) {
-            colName = colName.lower();
-            newObj[colName] = data[colName];
-            return newObj;
-        }, {});
-*/
-        //INSERT INTO users (firstname, lastname) VALUES (firstnameValue, lastnameValue)
-        db.exec("INSERT INTO users (firstname, lastname) VALUES ('Enrique', 'De Diego')", function(err, result) {
-            console.log("DONE");
-        });
-
+    var cols = [
+      'firstName',
+      'lastName',
+      ''
+    ]
+    db.exec("INSERT INTO users (firstname, lastname) VALUES ('Enrique', 'De Diego')", function(err, result) {
+        console.log("DONE");
     });
+//     db.all("PRAGMA table_info(" + table + ")", function(err, cols) {
+//         /*cols = cols.map(function (col) {
+//             return col.name
+//         });
+//
+//         var newData = cols.reduce(function(newObj, colName) {
+//             colName = colName.lower();
+//             newObj[colName] = data[colName];
+//             return newObj;
+//         }, {});
+// */
+//         //INSERT INTO users (firstname, lastname) VALUES (firstnameValue, lastnameValue)
+//
+//
+//     });
 };
 
 exports.select = function(table, where) {
@@ -39,5 +45,3 @@ exports.update = function(table, where, update) {
         return true;
     });
 };
-
-
