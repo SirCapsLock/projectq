@@ -108,11 +108,13 @@ a {
 
 #testimonials,
 #sponsors,
-#dayQuest {
+#dayQuest,
+#feedbackSection {
     padding: 30px;
     text-align: center !important;
     background: #f4f4f4;
 }
+
 
 #dayQuest {
     padding: 60px 20%;
