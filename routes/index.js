@@ -16,6 +16,10 @@ router.get('/login', function(req, res, next) {
    res.render('login', { title: 'Login | QME' });
  });
 
+router.get('/sponsor', function(req, res, next) {
+   res.render('sponsor', { title: 'Sponsor | QME' });
+ });
+
 router.get('/recorder', function (req, res) {
     res.render('recorder');
 });

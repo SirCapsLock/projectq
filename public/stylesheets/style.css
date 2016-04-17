@@ -116,6 +116,7 @@ a {
 }
 
 
+
 #dayQuest {
     padding: 60px 20%;
 }
@@ -143,11 +144,16 @@ a {
     color: #264368;
 }
 
-#bigQ {
+#bigQ, #visapaytagline {
     font-weight: 900;
     font-size: 300%;
     color: #46cec3;
     text-align: right;
+}
+
+#visapaytagline {
+    text-align: center;
+    font-size: 250%;
 }
 
 #actualQuestion {
@@ -250,4 +256,15 @@ footer {
 .sponsorLogos {
    height: 128px !important;
     width: auto !important;
+}
+
+input[type="date"],
+input[type="number"] {
+    width: 90%;
+    padding: 20px;
+}
+
+
+form h3 {
+    color: #264368;
 }
