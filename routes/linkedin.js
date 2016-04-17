@@ -47,7 +47,9 @@ router.get('/licallback', function(req, res) {
           console.log("DONE");
       });
     });
+<<<<<<< Updated upstream
     */
+
     return res.redirect('/dashboard');
   });
 });
