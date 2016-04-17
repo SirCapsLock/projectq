@@ -1,24 +1,155 @@
 <script src="https://cdn.WebRTC-Experiment.com/RecordRTC.js"></script>
 <script>
 
+    var questions = [{
+            text: 'Tell me a little about yourself',
+            time: 30
+        },
+        {
+            text: 'How do you feel about Node?',
+            time: 15
+        }
+    ];
 
-    var mediaConstraints = { video: true, audio: true };
-    var successFn = function(stream) {
-        console.log(stream);
-    };
-    var errorFn = function(err) {
-        console.log(err);
-    };
-    navigator.getUserMedia = ( navigator.getUserMedia ||
-                                navigator.webkitGetUserMedia ||
-                                navigator.mozGetUserMedia ||
-                                navigator.msGetUserMedia);
+    $(document).ready(function () {
+        var recorder;
+        var mediaConstraints = { video: true, audio: true };
+        var recordBtn = $('#record-button');
+        var isRecording = false;
+        var video = $('#recording-video');
+        var theStream;
+        var status = $('#status-text');
+        var successFn = function(stream) {
+            console.log('stream is ready');
+            theStream = stream;
+            recordBtn.addClass('btn-success');
 
-    navigator.getUserMedia(mediaConstraints, successFn, errorFn);
+//            video.attr('src', URL.createObjectURL(stream));
+
+            var options = {
+                mimeType: 'video/webm'
+            };
+
+            recorder = RecordRTC(stream, options);
+        };
+        var errorFn = function(err) {
+            console.log("ERROR capturing video");
+            console.log(err);
+        };
+        navigator.getUserMedia = ( navigator.getUserMedia ||
+                                    navigator.webkitGetUserMedia ||
+                                    navigator.mozGetUserMedia ||
+                                    navigator.msGetUserMedia);
+
+        navigator.getUserMedia(mediaConstraints, successFn, errorFn);
+
+
+        recordBtn.click(function (e) {
+            if(!isRecording) {
+                isRecording = true;
+                console.log("Starting recording");
+                recordBtn.removeClass('btn-success').addClass('btn-danger');
+                recordBtn.text("Stop");
+
+                recorder.startRecording();
+
+                video.attr('src', URL.createObjectURL(theStream));
+                video.attr('muted', 'true');
+
+
+            }
+            else {
+                isRecording = false;
+                console.log("Stopping recording");
+
+                recordBtn.removeClass('btn-danger').addClass('btn-success');
+                recordBtn.text("Start");
+
+                recorder.stopRecording(function(avURL) {
+                    console.log("URL: " + avURL);
+
+                    status.text("Saving...");
+
+                    video.attr('src', avURL);
+
+                    var recordedBlob = recorder.getBlob();
+                    console.log(recordedBlob);
+                    recorder.getDataURL(function (dataURL) {
+                        console.log("Gonna save the video now..right?");
+                        var vidData = {
+                            blob: recordedBlob,
+                            dataURL: dataURL
+                        };
+                        saveVideo(vidData);
+                    });
+
+
+
+                    video.onended = function() {
+                        video.pause();
+
+                        // dirty workaround for: "firefox seems unable to playback"
+                        video.attr('src', URL.createObjectURL(recorder.getBlob()));
+                    };
+
+                });
+            }
+
+        });
+
+        function saveVideo(vidData) {
+            var filename = 'YUUU_i1_q1';
+            var files = {};
+
+            files.video = {
+                name: filename + '.' + vidData.blob.type.split('/')[1],
+                type: vidData.blob.type,
+                contents: vidData.dataURL
+            };
+
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                console.log("Request status: " + request.status);
+                if (request.readyState == 4 && request.status == 200) {
+                    console.log("Request came back successful?");
+                    nextQuestion();
+                }
+            };
+
+            request.upload.onprogress = function(e) {
+                status.text(Math.round(e.loaded / e.total * 100) + "%");
+
+            };
+
+            request.upload.onload = function() {
+                status.text("DONE?");
+            };
+
+            request.open('POST', '/recordings/save');
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            console.log("FILES:");
+            console.log(files);
+            request.send(JSON.stringify(files));
+
+
+        }
+
+        function nextQuestion() {
+            console.log("Proceeding to next question");
+        }
+
+    });
 
 
 </script>
 
-<p align="center">
-    Hello?
-</p>
+<div align="center">
+    <video id="recording-video" width="640" height="480" controls>
+
+    </video>
+    <br>
+    <button class="btn-lg" id="record-button">Start</button>
+    <div id="recording-status">
+        <h1 id="status-text">Status</h1>
+    </div>
+</div>
