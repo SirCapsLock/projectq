@@ -1,15 +1,6 @@
 <script src="https://cdn.WebRTC-Experiment.com/RecordRTC.js"></script>
 <script>
 
-    var questions = [{
-            text: 'Tell me a little about yourself',
-            time: 30
-        },
-        {
-            text: 'How do you feel about Node?',
-            time: 15
-        }
-    ];
 
     $(document).ready(function () {
         var recorder;
@@ -19,6 +10,26 @@
         var video = $('#recording-video');
         var theStream;
         var status = $('#status-text');
+        var $questions = $('#questions li');
+        var $currentQuestion = $('#interview-question');
+        var $nextQbtn = $('#next-question-button');
+        $nextQbtn.hide();
+        $nextQbtn.click(function (e) {
+            nextQuestion();
+        });
+        var $curQuestionNum = $('#current-question-index');
+        var $totalQuestions = $('#questions-total');
+
+        var qIndex = 0;
+
+        var curQid = $($questions[qIndex]).attr('id');
+
+        $curQuestionNum.text(qIndex + 1);
+        $totalQuestions.text($questions.length);
+
+        $currentQuestion.text($($questions[0]).text());
+
+
         var successFn = function(stream) {
             console.log('stream is ready');
             theStream = stream;
@@ -101,6 +112,10 @@
             var filename = 'YUUU_i1_q1';
             var files = {};
 
+            files.question = {
+                id: curQid.split('-')[1]
+            };
+
             files.video = {
                 name: filename + '.' + vidData.blob.type.split('/')[1],
                 type: vidData.blob.type,
@@ -112,7 +127,8 @@
                 console.log("Request status: " + request.status);
                 if (request.readyState == 4 && request.status == 200) {
                     console.log("Request came back successful?");
-                    nextQuestion();
+                    $nextQbtn.show();
+                    recordBtn.hide();
                 }
             };
 
@@ -122,13 +138,12 @@
             };
 
             request.upload.onload = function() {
-                status.text("DONE?");
+
             };
 
             request.open('POST', '/recordings/save');
             request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            console.log("FILES:");
-            console.log(files);
+
             request.send(JSON.stringify(files));
 
 
@@ -136,6 +151,27 @@
 
         function nextQuestion() {
             console.log("Proceeding to next question");
+            $nextQbtn.hide();
+            qIndex++;
+            if(qIndex < $questions.length)
+            {
+                recordBtn.show();
+                $curQuestionNum.text(qIndex + 1);
+                curQid = $($questions[qIndex]).attr('id');
+                $currentQuestion.text($($questions[qIndex]).text());
+            }
+            else
+            {
+                finish();
+            }
+
+        }
+
+        function finish() {
+            console.log("DONE!");
+            window.location = "/";
+
+
         }
 
     });
@@ -143,12 +179,30 @@
 
 </script>
 
+<ul id="questions" style="display: none;">
+    {{#each questions}}
+        <li id="question-{{this.id}}">{{this.text}}</li>
+    {{/each}}
+</ul>
+
+<div class="interview-info">
+    <h1>{{ title }}</h1>
+    <div class="questions-counter">
+        Question <span id="current-question-index">1</span> of <span id="questions-total">3</span>
+    </div>
+</div>
+
+<div class="interview-question" align="center">
+    <h1 id="interview-question"></h1>
+</div>
+
 <div align="center">
     <video id="recording-video" width="640" height="480" controls>
 
     </video>
     <br>
     <button class="btn-lg" id="record-button">Start</button>
+    <button class="btn-lg" id="next-question-button">Next Question</button>
     <div id="recording-status">
         <h1 id="status-text">Status</h1>
     </div>

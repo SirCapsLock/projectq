@@ -201,3 +201,21 @@ footer {
     padding: 12% 5%;
     background: #264368;
 }
+
+/* RECORDER STYLES */
+.interview-info
+{
+    margin-left: 20px;
+}
+
+.interview-info h1
+{
+    color: #ffcd33;
+
+}
+.interview-question
+{
+    color: #0000cc;
+    margin: 30px auto;
+}
+
