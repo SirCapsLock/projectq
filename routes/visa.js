@@ -104,7 +104,7 @@ QME.push.transfer({
     'transactionIdentifier': '381228649430015'
 });
 
-router.post('/visa', function(req, res) {
+router.post('/', function(req, res) {
     req.body = req.body || {};
     QME.pull.transfer({
         'acquirerCountryCode': '840',

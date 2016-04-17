@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var visa = require('./routes/visa.js');
 var recordings = require('./routes/recordings.js');
+var linkedin = require('./routes/linkedin.js');
+var api = require('./routes/api.js');
 
 var app = express();
 
@@ -30,6 +32,8 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/visa', visa);
 app.use('/recordings', recordings);
+app.use('/linkedin', linkedin);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,8 +43,6 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-
-// development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {

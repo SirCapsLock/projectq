@@ -198,5 +198,6 @@ footer {
     margin: 20px auto;
     width: 60%;
     border: 6px solid #264368; 
-    padding: 5%;
+    padding: 12% 5%;
+    background: #264368;
 }

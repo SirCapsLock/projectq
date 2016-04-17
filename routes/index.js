@@ -1,7 +1,8 @@
 var Linkedin = require('node-linkedin')('app-id', 'secret', 'callback');
 var express = require('express');
 var router = express.Router();
-
+var qdb = require('../libs/qdb');
+var fs = require('fs');
 // /* GET home page. */
  router.get('/', function(req, res, next) {
    res.render('index', { title: 'Project QME' });
@@ -17,6 +18,14 @@ router.get('/login', function(req, res, next) {
 
 router.get('/recorder', function (req, res) {
     res.render('recorder');
+});
+
+router.get('/qdb', function (req, res) {
+    qdb.add('users', {
+        firstname : 'enrique',
+        x: 0
+    });
+    res.send('hello');
 });
 // module.exports = router;
 
@@ -34,6 +43,8 @@ router.get('/recorder', function (req, res) {
 // <<<<<<< Updated upstream
 //    Linkedin.auth.authorize(res, scope);
 //});
+
+
 
 router.get('/testdb', function(req,res, next) {
   var sqlite = require('sqlite3').verbose();
