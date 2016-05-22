@@ -11,4 +11,4 @@ The SQlite database contains eight tables:
 * users
  
 
-Our counted five members and we created this app during the **eMerge America Hackathon**, a 24 hour intensive coding challenge.
+Our counted five members and we created this app during the [**eMerge America Hackathon**](https://www.eventbrite.com/e/emerge-americas-2016-hackathon-tickets-21063558671?mc_cid=cf19eb3df4&mc_eid=[UNIQID]), a 24 hour intensive coding challenge.
